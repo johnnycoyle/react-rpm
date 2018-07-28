@@ -32,11 +32,9 @@ module.exports = {
         'babel-loader'
       ],
       exclude: /node_modules/,
-    }, {
-      test: /\.css$/,
-      use: ['style-loader', 'css-loader?modules'],
-      exclude: /node_modules/,
-    }, {
+    }, 
+      {test: /\.less$/, use:['style-loader', 'css-loader', 'less-loader']},
+    {
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
       use: [
         {
@@ -46,29 +44,17 @@ module.exports = {
           }
         }
       ]
-    }, { 
-      test: /\.scss$/,
-        use: [{
-            loader: "style-loader"
-        }, {
-            loader: "css-loader", options: {
-                sourceMap: true
-            }
-        }, {
-            loader: "sass-loader", options: {
-                sourceMap: true
-            }
-        }]
     }, {
-      test: /\.(jpg|jpeg|png)$/,
+      test: /\.(jpg|jpeg|png|mp4)$/,
       use: [
         {
           loader: 'file-loader',
           options: {
-            limit: 8192,
+            limit: 16192,
           }
-        }
+        },
       ],
-    }]
+    },
+    ]
   }
 };

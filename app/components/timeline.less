@@ -1,0 +1,59 @@
+.timeline-container {
+  position: absolute;
+  width: 200px;
+  top: 8%;
+  left: 3%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  animation: fade-in 1s ease;
+  animation-fill-mode: forwards;
+  animation-delay: 4s;
+  z-index: 100;
+
+  .timeline {
+    height: 250px;
+    z-index: 100;
+  }
+}
+    .timeline-element {
+      width: 130px;
+      height: 20px;
+      position: relative;
+      white-space: nowrap;
+
+      .timeline-tick {
+        border-top: 2px solid white;
+        width: 15px;
+        height: 20px;
+        display: inline-block;
+        transition: width 500ms ease;
+        cursor: pointer;
+      }
+
+      .timeline-tick:hover {
+        width: 25px;
+      }
+
+      .timeline-text {
+        font-size: 14px;
+        letter-spacing: 0px;
+        display: inline-block;
+        left: 30%;
+        top: -50%;
+        z-index: 100;
+        opacity: 1;
+        animation: fade-in 500ms ease;
+        animation-fill-mode: forwards;
+      }
+    }
+
+@keyframes fade-in {
+  from {
+    opacity:0
+  }
+  to {
+    opacity: 1;
+  }
+}

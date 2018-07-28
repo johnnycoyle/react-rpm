@@ -1,139 +1,118 @@
-/*es-lint enable*/
+/* es-lint disable */
 
 import React, { Component } from 'react';
-import ReactTransition from 'react-transition-group/CSSTransitionGroup';
-import ComponentView from './ComponentView';
-import ViewController from './../components/ViewController';
-import ProfileView from './ProfileView';
-import transitions from './../assets/transitions.css';
-import logoExitTransition from './../assets/logoExitTransition.css';
-import styles from './../assets/app.css';
+import * as Styles from './app.less';
+import Carousel from 'nuka-carousel';
+import Slide from './../components/slide';
+import Timeline from './../components/timeline';
+import WelcomePage from './../components/welcome-page';
+import NavigationButtons from './../components/lets-get-started-button';
+import HorizontalCarousel from './../components/horizontal-carousel';
 
 class App extends Component {
+
   constructor(props) {
     super(props);
-
-    this.haveReceivedPerfs = false;
-    this.message = [];
-    this.profileVisibility;
-    this.componentVisibility;
-    this.listenForPerfs();
+    const steps = [
+        'welcome',
+        'intro',
+        'company profile',
+        'business Units',
+        'employees',
+        'technicians',
+        'final Steps'
+    ]
 
     this.state = {
-      view: 'componentView',
-      appActive: true,
-      perfData: {},
-    };
-    //NOTE: temporary fix to circumvent 'start' message. will refactor later!!
-    this.message.push(this.buildMessage('listening'));
-  }
-
-  listenForPerfs() {
-    const backgroundPageConnection = chrome.runtime.connect({
-      name: 'panel',
-    });
-    backgroundPageConnection.postMessage({
-      name: 'init',
-      tabId: chrome.devtools.inspectedWindow.tabId,
-    });
-    backgroundPageConnection.onMessage.addListener((message) => {
-      if(message.source === "react-rpm-module" && message.type != "webpackOk") {
-        this.haveReceivedPerfs = true;
-        this.hasRenderBeenDetected = styles.renderDetected;
-        this.setState({ perfData: message.message });
-      }
-    });
-  }
-
-  buildMessage = (message) => {
-    if (message === 'listening') {
-      return (
-        <div
-          key={10000}
-          id={styles.listening}
-        >
-          react-rpm is listening for renders...
-        </div>
-      );
+      slideIndex: 0,
+      welcomeIsCompleted: false,
+      steps,
+      introductionComplete: false
     }
+
+    this.nextButtonControls;
+    this.previousButtonControls;
+
+    this.hasMounted = false;
   }
 
-  toggleViewHandler = () => {
-    let appView = this.state.view === 'componentView' 
-      ? 'profileView'
-      : 'componentView'
-    this.setState({ view: appView });
+  componentDidMount() {
+    this.hasMounted = true;
+  }
+
+  triggerIntroductionCompletion = () => {
+    this.setState({ introductionComplete: true })
+  }
+  setNextControls = (previous, next) => {
+    this.nextButtonControls = next;
+    this.previousButtonControls = previous;
+  }
+
+  handleTimelineClick = (index) => {
+    this.setState({ slideIndex: index});
   }
 
   render() {
-    let componentView = [];
-    let profileView = [];
-    let viewController = [];
 
-    if (this.state.appActive) {
-      if (this.haveReceivedPerfs) {
-        this.message = [];
-        if (this.state.view === 'profileView') [this.profileVisibility, this.componentVisibility] = [true, false];
-        else [this.profileVisibility, this.componentVisibility] = [false, true];
+    const { slideIndex } = this.state;
 
-        viewController = (
-          <ViewController
-            selectedView={this.state.view}
-            toggleViewHandler={this.toggleViewHandler}
-          />
-        );
-        componentView = (
-          <ComponentView
-            key={1}
-            componentVisibility={this.componentVisibility}
-            perfData={this.state.perfData}
-          />
-        );
-        profileView =  (
-          <ProfileView
-            key={2}
-            profileVisibility={this.profileVisibility}
-            perfData={this.state.perfData}
-          />
-        )
-      }
-    }
-    console.log('[Logging from App render]:\nthis.state.perfData:',this.state.perfData);
     return (
-      <div id={styles.main_container}>
-        <div id={styles.divider}></div>
-
-        {viewController}
-        <div 
-          id={styles.bannerContainer}>
-
-          <span 
-            id={styles.bannerTitle}>
-            {'react rpm  '}
-          </span>
-
-          <span id={styles.bannerByLine}>
-            real-time performance metrics
-          </span>
-
-        </div>
-        <div id={styles.message_container}>
-          <ReactTransition
-            transitionName={transitions}
-            transitionAppear={true}
-            transitionAppearTimeout={4500} transitionEnterTimeout={3000} transitionLeaveTimeout={300}>
-            {this.message}
-          </ReactTransition>
-        </div>
-        {/*<span id={styles.efficientMessage}>
-          App is not registering any inefficiencies
-        </span>*/}
-        {profileView}
-        {componentView}
-      </div>
+      <div className="main-container">
+        { 
+          slideIndex !== 0 &&
+            <img className="logo" src={require("./../assets/st_full_logo_white.png")}/>
+        }
+        <Timeline
+            steps={this.state.steps}
+            slideIndex={this.state.slideIndex}
+            handleTimelineClick={this.handleTimelineClick}
+        />
+        <Carousel
+          slideIndex={this.state.slideIndex}
+          afterSlide={slideIndex => 
+            this.setState({
+              welcomeIsCompleted: this.state.welcomeIsCompleted || slideIndex === 0,
+              slideIndex 
+            })
+          }
+          renderCenterLeftControls={() => null}
+          renderCenterRightControls={() => null}
+          renderBottomRightControls={({ previousSlide, nextSlide }) => {
+            this.setNextControls(previousSlide, nextSlide);
+            return (
+              <NavigationButtons 
+                text={ this.state.slideIndex === 0 ? 'Let\'s get started' : null}
+                showPrevious={ this.state.slideIndex > 0}
+                onClick={{previousSlide, nextSlide}}
+              />
+          )}}
+          vertical={true}
+          speed={750}
+        >
+          <WelcomePage 
+            shouldDisplay={this.hasMounted || this.state.slideIndex === 0}
+            textHeader={"Welcome"}
+            textSubHeader={"Let's get you set up!"}
+          />
+          <Slide content="Slide 1" color="rgba(34, 112, 238, 1)">
+            <HorizontalCarousel
+              active={this.state.slideIndex === 1}
+              triggerIntroductionCompletion={this.triggerIntroductionCompletion}
+              introductionComplete={this.state.introductionComplete}
+            />
+          </Slide>
+          <Slide content="Slide 3" color="#FFB2A0"/>
+          <Slide content="Slide 3" color="#BF2A00"/>
+          <Slide content="Slide 3" color="#10864B"/>
+          <Slide content="Slide 5" color="#FFBE00"/>
+          <Slide content="Slide 3" color="#422799"/>
+          <Slide content="Slide 3"/>
+        </Carousel>
+      </div> 
     );
   }
 }
+
 
 
 

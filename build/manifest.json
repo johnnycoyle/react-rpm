@@ -11,7 +11,7 @@
     }
   ],
 
-  "content_security_policy": "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src * 'unsafe-inline' 'self' blob:; img-src 'self'; font-src 'self' *" ,
+  "content_security_policy": "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src * 'unsafe-inline' 'self' blob:; img-src 'self';  'self' *" ,
 
   "background": {
     "scripts": ["background.js"]

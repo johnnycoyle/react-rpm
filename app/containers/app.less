@@ -1,0 +1,45 @@
+@import 'colors.less';
+
+body { 
+  margin: 0;
+  padding: 0;
+  background: #2270EE;
+  min-width: 1000px; 
+}
+
+.main-container {
+  width: 100%;
+  display: flex;
+  height: 100vh; 
+  overflow: hidden;
+  justify-content: center;
+  user-select: none;
+  max-height: 100vh;
+}
+
+.slider-frame {
+  max-height: 100vh;
+  .slider-list {
+    max-height: 100vh;
+    .slider-slide {
+      max-height: 100vh;
+    }
+  }
+}
+
+.slider-control-bottomright {
+    position: absolute;
+    bottom: 100px !important;
+    right: 60px !important;
+}
+.slider-slide {
+  height: 1000px !important;
+}
+
+.logo {
+  z-index: 100;
+  width: 250px;
+  position: absolute;
+  margin: auto;
+  top: 6.75%;
+}

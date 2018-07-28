@@ -1,0 +1,81 @@
+.nav-button-container {
+  width: 250px;
+}
+
+  .nav-button-next {
+    outline: none;
+    background: none;
+    border: 1px solid white;
+    position: absolute;
+    width: 43px;
+    height: 43px;
+    color: white;
+    border-radius: 30px; 
+    right: 0;
+    bottom: -13px;
+    z-index: 1;
+    animation: fade-in 2s ease;
+    animation-fill-mode: forwards;
+    animation-delay: 4s;
+
+    opacity: 0;
+    .icon {
+      margin: 0 !important;
+      padding: 0 !important;
+      transform: translateY(10%);
+    }
+    transform: scale(1);
+    transition: transform 100ms ease-in-out;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+
+.nav-button-prev {
+  outline: none;
+  right: 60px;
+  position: absolute;
+  z-index: 1000;
+  animation: none;
+  background: none;
+  width: 43px;
+  height: 43px;
+  color: white;
+  border-radius: 30px; 
+  bottom: -13px;
+  .icon {
+    transform: translateX(10%);
+  }
+  transform: scale(1);
+  transition: transform 100ms ease-in-out;
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+span {
+    position: absolute;
+    display: inline-block;
+    color: white;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 2.19px;
+    bottom: 50%;
+    right: 70px;
+    z-index: 1;
+    animation: fade-in 2s ease;
+    animation-fill-mode: forwards;
+    animation-delay: 4s;
+    opacity: 0;
+}
+
+
+@keyframes fade-in {
+  from {
+    opacity:0
+  }
+  to {
+    opacity: 1;
+  }
+}

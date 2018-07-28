@@ -1,0 +1,14 @@
+.hor-carousel-container {
+  position: absolute;
+  background: red;
+  width: 500px;
+  height: 500px;
+  z-index: 10;
+
+  div {
+    width: 20px;
+    height: 20px;
+    background: tomato;
+    z-index: 100;
+  }
+}

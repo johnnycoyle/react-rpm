@@ -1,0 +1,52 @@
+
+.carousel-slide {
+  background: #A9D1FF;
+  height: 100vh;
+  width: 100%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h3 {
+    flex: 1;
+    margin: auto;
+  }
+}
+
+  .logo-container {
+    width: 100%;
+    height: 200px;
+    justify-content: center;
+    z-index: 1000;
+    top: 40%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+
+    .left-logo-text {
+      left: 3%;
+      top: 50px;
+      font-size: 14px;
+      letter-spacing: 2.33px;
+      transform: translateY(-600%);
+    }
+    .right-logo-text {
+      right: 3%;
+      top: 50px;
+      font-size: 14px;
+      letter-spacing: 2.33px;
+      transform: translateY(-600%);
+    }
+
+    .logo-fade-in {
+      margin: auto;
+      text-align: center;
+      width: 250px;
+      right: 75%;
+      animation-delay: .8s;
+      animation-fill-mode: forwards;
+      transform: translateY(0%);
+      opacity: 0;
+    }
+  }

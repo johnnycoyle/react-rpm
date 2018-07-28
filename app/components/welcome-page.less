@@ -1,0 +1,306 @@
+.main-container-welcome {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  white-space: nowrap;
+  justify-content: center;
+  z-index: 3;
+
+  .slide-in-container {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: #004CC3;
+    z-index: 1;
+    transform: translateX(-150%);
+    animation: blue-card-slide-in 1s ease-out;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+  }
+  .logo-container {
+    width: 100%;
+    height: 200px;
+    justify-content: center;
+    z-index: 1000;
+    top: 40%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+
+    .left-logo-text {
+      left: 3%;
+      top: 50px;
+      font-size: 14px;
+      letter-spacing: 2.33px;
+      transform: translateY(-600%);
+    }
+    .right-logo-text {
+      right: 3%;
+      top: 50px;
+      font-size: 14px;
+      letter-spacing: 2.33px;
+      transform: translateY(-600%);
+    }
+
+    .logo-fade-in {
+      margin: auto;
+      text-align: center;
+      width: 250px;
+      right: 75%;
+      animation: logo-fade-in-animation 1.8s ease-in-out;
+      animation-delay: 2.1s;
+      animation-fill-mode: forwards;
+      transform: translateY(0%);
+      opacity: 0;
+    }
+  }
+}
+
+.dark-layover {
+  width: 100%;
+  height: 100vh;
+  background: #2D2E31;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+
+  animation: dark-layover-animation 2.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+@keyframes dark-layover-animation {
+  0% {
+    width: 100%;
+  }
+  75% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+.logo-fade-out-black {
+  position: absolute;
+  width: 270px;
+  top: 75px;
+  opacity: 0;
+  animation: hide-dark-logo 2.2s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes hide-dark-logo {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  89% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+@keyframes logo-fade-in-animation {
+  0% {
+    transform: translateY(0%);
+    opacity: 0;
+  }
+  2% {
+    opacity: 1;
+  }
+  39% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-800%);
+    opacity: 1;
+  }
+}
+
+.play-button-container {
+  position: absolute;
+  width: 61px;
+  height: 61px;
+  border-radius: 30px;
+  background: white;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 35%;
+  transform: scale(0);
+  animation: play-button-fade-in 500ms ease-in-out;
+  animation-fill-mode: forwards;
+  animation-delay: 4.5s;
+
+  .play-button-icon {
+    transform: translateX(15%);
+    z-index: 100;
+  }
+}
+
+@keyframes play-button-fade-in {
+  from {
+    transform:scale(0);
+  }
+  to {
+    transform:scale(1);
+  }
+}
+.play-button-echo {
+    position: absolute;
+    width: 61px;
+    height: 61px;
+    z-index: 2;
+    border-radius: 30px;
+    transform: scale(0);
+    animation: play-button-echo-anim 3s ease;
+    animation-iteration-count: infinite;
+    background: white;
+    right: 0;
+}
+
+.play-button-echo-A:extend(.play-button-echo) {
+  animation-delay: .5s;
+  z-index: 2;
+}
+
+.play-button-echo-B:extend(.play-button-echo) {
+  animation-delay: 1s;
+  z-index: 2;
+}
+
+@keyframes play-button-echo-anim {
+  0% {
+    transform:scale(0);
+    opacity: .8
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+.video-blue-overlay {
+  position: absolute;
+  z-index: 5;
+  background: #2270EE;
+  width: 100%;
+  height: 100vh;
+  opacity: .6;
+  cursor: default;
+}
+
+.video-container {
+  height: 100vh;
+  top: -50%;
+  left: 0;
+  position: fixed;
+  min-width: 100%;
+  min-height: 100%;
+
+  .video-mask {
+    height: 100%;
+    top: 50%;
+    width: 100%;
+    background: #2270EE;
+    position: absolute;
+    z-index: 50 !important;
+    animation: video-mask-animation 2s;
+    animation-delay: 3s;
+    animation-fill-mode: forwards;
+    opacity: 1;
+  }
+
+  #background-video {
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    min-height: 100%;
+    min-width: 100%;
+    z-index: 2;
+    filter: grayscale(100%);
+    animation: video-animation 1s ease;
+    animation-fill-mode: forwards;
+    opacity: 0;
+  }
+}
+
+@keyframes video-mask-animation {
+  0% {
+    left: 0;
+    visibility: visible;
+  }
+  99% {
+    left: 150%;
+  }
+  100% {
+    left: 150%;
+    visibility: hidden;
+    display: none;
+  }
+}
+
+@keyframes video-animation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.welcome-text-container {
+  position: absolute;
+  z-index: 10;
+  opacity: 0;
+  animation: welcome-fade-in 1s ease;
+  animation-fill-mode: forwards;
+  animation-delay: 4s;
+  h1 {
+    font-weight: lighter;
+    font-family: 'Nunito Sans';
+    font-size: 38px;
+    color: white;
+    line-height: 94px;
+    transform: translateX(-40%);
+  }
+}
+
+@keyframes welcome-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes blue-card-slide-in {
+  from {
+    transform: translateX(-150%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+
+button {
+  transform: translateY(100%);
+}
